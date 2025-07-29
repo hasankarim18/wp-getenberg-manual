@@ -1,18 +1,63 @@
-wp.blocks.registerBlockType("mgb/static-block", {
-  title: "Static Widget",
-  icon: "smiley",
+wp.blocks.registerBlockType("mgb/message-block", {
+  title: "Mgb Message Widget",
+  icon: "dashicons-buddicons-pm",
   category: "widgets",
-  attributes: {},
-  edit: function (props) {
-    return wp.element.createElement(
-      "div",
-      { className: "static-widget-demo" },
-      wp.element.createElement("h2", {}, "Static widget-block***")
-    );
+  attributes: {
+    message: {
+      type: "string",
+      default: "Hello World!",
+    },
   },
-  save: function (props) {
+  edit: (props) => {
+    const InspectorControls = wp.blockEditor
+      ? wp.blockEditor.InspectorControls
+      : wp.editor.InspectorControls;
+    const PanelBody = wp.components.PanelBody;
+    const inputStyle = {
+      width: "100%",
+      marginBottom: "12px",
+      boxSizing: "border-box",
+    };
+
+    return [
+      wp.element.createElement(
+        InspectorControls,
+        {},
+        wp.element.createElement(
+          PanelBody,
+          {
+            title: "Message Controls",
+            initialOpen: true,
+          },
+          wp.element.createElement(
+            "div",
+            { style: { marginBottom: "16px" } },
+            wp.element.createElement(
+              "label",
+              { htmlFor: "mgb-message" },
+              "Message Input"
+            ),
+            wp.element.createElement("input", {
+              id: "mgb-message",
+              type: "text",
+              value: props.attributes.message,
+              onChange: function (e) {
+                props.setAttributes({ message: e.target.value });
+              },
+              placeholder: "Enter your message...",
+              style: inputStyle,
+            })
+          )
+        )
+      ),
+      wp.element.createElement(
+        "div",
+        {},
+        wp.element.createElement("p", {}, props.attributes.message)
+      ),
+    ];
+  },
+  save: () => {
     return null;
   },
 });
-
-console.log("Widget Block registered js!");

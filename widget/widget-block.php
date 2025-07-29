@@ -4,7 +4,7 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
-error_log('widget-block.php loaded!');
+
 
 
 class Widget_Block
@@ -19,16 +19,33 @@ class Widget_Block
 
     public function register_blocks()
     {
-        register_block_type('mgb/static-block', [
-            'render_callback' => [$this, 'render_static_block']
+
+        register_block_type('mgb/message-block', [
+            'render_callback' => [$this, 'render_message_block'],
+            "attributes" => [
+                "message" => [
+                    "type" => "string",
+                    "default" => "Hello World!"
+                ]
+            ]
         ]);
 
     }
 
-    public function render_static_block($attributes, $content)
+
+
+    // 
+    public function render_message_block($attributes, $content)
     {
-        error_log('Render static block called');
-        return "<div class='static-widget-demo'>Static widget-block!!!!!!!!!!!!</div>";
+        $msg = $attributes['message'] ? esc_html($attributes['message']) : 'Hello World!';
+        ob_start();
+        ?>
+        <div class="mgb_message_container">
+            <p>
+                <?php echo $msg; ?>
+            </p>
+        </div>
+        <?php return ob_get_clean();
 
     }
 
@@ -43,8 +60,7 @@ class Widget_Block
             true
         );
     }
-
-
 }
+
 
 new Widget_Block();
