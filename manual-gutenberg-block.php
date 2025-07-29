@@ -22,7 +22,7 @@ if (!defined('ABSPATH')) {
 define('MGB_PATH', plugin_dir_path(__FILE__));
 define('MGB_URL', plugin_dir_url(__FILE__));
 
-class Plugin_Class_Name
+class Manual_gutenberg_block
 {
     public function __construct()
     {
@@ -33,6 +33,9 @@ class Plugin_Class_Name
     public function load_dependencies()
     {
         // Load includes or helpers
+        if (file_exists(MGB_PATH . 'widget/widget-block.php')) {
+            require_once MGB_PATH . 'widget/widget-block.php';
+        }
     }
 
     public function init()
@@ -41,7 +44,7 @@ class Plugin_Class_Name
     }
 }
 
-new Plugin_Class_Name();
+new Manual_gutenberg_block();
 
 /**
  * Plugin Activation Hook
