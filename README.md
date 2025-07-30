@@ -1,6 +1,4 @@
-Here’s a clear and concise **README.md** documentation that explains how to manually register a Gutenberg block **without React or build tools** (using plain JS and PHP), based on your example:
 
----
 
 # Manual Gutenberg Block – `mgb/static-block`
 
