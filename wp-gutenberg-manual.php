@@ -41,6 +41,12 @@ class Manual_gutenberg_block
         if (file_exists(MGB_PATH . 'widget/colored-message/class-colored-message.php')) {
             require_once MGB_PATH . 'widget/colored-message/class-colored-message.php';
         }
+
+        if (file_exists(MGB_PATH . 'advertisementBlock/advertisementBlock.php')) {
+            require_once MGB_PATH . 'advertisementBlock/advertisementBlock.php';
+        }
+
+
     }
 
     public function init()
